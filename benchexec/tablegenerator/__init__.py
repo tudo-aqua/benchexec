@@ -1224,7 +1224,7 @@ def get_summary(runSetResults):
         return None
 
 
-def create_tables(name, runSetResults, rows, rowsDiff, outputPath, outputFilePattern, options):
+def create_tables(name, runSetResults, rows, rowsDiff,  rowsEqual, outputPath, outputFilePattern, options):
     '''
     Create tables and write them to files.
     @return a list of futures to allow waiting for completion
@@ -1301,6 +1301,7 @@ def create_tables(name, runSetResults, rows, rowsDiff, outputPath, outputFilePat
     # write difference tables
     if rowsDiff:
         write_table("diff", name + " differences", rowsDiff, use_local_summary=False)
+        write_table("equal", name + " equalities", rowsEqual, use_local_summary=False)
 
     return futures
 
@@ -1525,11 +1526,12 @@ def main(args=None):
         logging.warning('No results found, no tables produced.')
         exit()
     rowsDiff = filter_rows_with_differences(rows) if options.write_diff_table else []
+    rowsEqual = [row for row in rows if row not in rowsDiff]
 
     logging.info('Generating table...')
     if not os.path.isdir(outputPath) and not outputFilePattern == '-':
         os.makedirs(outputPath)
-    futures = create_tables(name, runSetResults, rows, rowsDiff, outputPath, outputFilePattern, options)
+    futures = create_tables(name, runSetResults, rows, rowsDiff, rowsEqual, outputPath, outputFilePattern, options)
 
     if options.dump_counts: # print some stats for Buildbot
         print ("REGRESSIONS {}".format(get_regression_count(rows, options.ignoreFlappingTimeouts)))
