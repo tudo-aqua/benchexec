@@ -16,8 +16,27 @@ class Tool(benchexec.tools.template.BaseTool):
     (https://github.com/tudo-aqua/jdart).
     """
 
+    REQUIRED_PATHS = [
+        "jconstraints-extensions",
+        "lib",
+        "z3",
+        "basic.jpf",
+        "jdk8u222-b10",
+        "jconstraints-0.9.2-SNAPSHOT.jar",
+        "jpf-annotations.jar",
+        "jpf-classes.jar",
+        "jpf.jar",
+        "jpf-jdart-annotations.jar",
+        "jpf-jdart-classes.jar",
+        "jpf-jdart.jar",
+        "RunJPF.jar",
+        "version.txt",
+        "jdart-wrapper.sh",
+        "run-jdart-wrapper.sh",
+    ]
+
     def executable(self):
-        return util.find_executable("run-jdart.sh")
+        return util.find_executable("run-jdart-wrapper.sh")
 
     def version(self, executable):
         return self._version_from_tool(executable, arg="-v")

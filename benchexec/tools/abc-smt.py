@@ -5,15 +5,28 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+import benchexec.util as util
+import benchexec.tools.smtlib2
 import benchexec.result as result
-import benchexec.tools.template
 
+class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
+    """
+    Tool info for ABC solver.
+    """
 
-class Smtlib2Tool(benchexec.tools.template.BaseTool):
-    """
-    Abstract base class for tool infos for SMTLib2-compatible solvers.
-    These tools share a common output format, which is implemented here.
-    """
+    def executable(self):
+        return util.find_executable("runner-abc.sh")
+
+    def version(self, executable):
+        line = self._version_from_tool(executable, "-version")
+        return line.strip()
+
+    def name(self):
+        return "abc"
+
+    def cmdline(self, executable, options, tasks, propertyfile=None, rlimits={}):
+        assert len(tasks) <= 1, "only one inputfile supported"
+        return [executable] + options + tasks
 
     def determine_result(self, returncode, returnsignal, output, isTimeout):
 
@@ -21,10 +34,10 @@ class Smtlib2Tool(benchexec.tools.template.BaseTool):
             status = None
             for line in output:
                 line = line.strip()
-                if line == "unsat":
-                    status = result.RESULT_FALSE_PROP
-                elif line == "sat":
+                if line == "sat":
                     status = result.RESULT_TRUE_PROP
+                elif line == "unsat":
+                    status = result.RESULT_FALSE_PROP
                 elif not status and line.startswith("(error "):
                     status = "ERROR"
 
@@ -41,6 +54,6 @@ class Smtlib2Tool(benchexec.tools.template.BaseTool):
         elif returnsignal == 15:
             status = "KILLED"
         else:
-            status = f"ERROR ({returncode})"
+            status = "ERROR ({0})".format(returncode)
 
         return status
