@@ -11,20 +11,21 @@ import benchexec.tools.smtlib2
 
 class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
     """
-    Tool info for cvc4.
+    Tool info for cvc5.
     """
+    REQUIRED_PATHS = ["run-cvc5.sh", "cvc5"]
 
     def executable(self):
-        return util.find_executable("run-cvc4.sh")
+        return util.find_executable("run-cvc5.sh")
 
     def version(self, executable):
         line = self._version_from_tool(executable, "-version")
-        line = line.replace("This is CVC4 version","")
+        line = line.replace("This is CVC5 version","")
         line = line.split("\n")[0]
         return line.strip()
 
     def name(self):
-        return "CVC4"
+        return "CVC5"
 
     def cmdline(self, executable, options, tasks, propertyfile=None, rlimits={}):
         assert len(tasks) <= 1, "only one inputfile supported"
