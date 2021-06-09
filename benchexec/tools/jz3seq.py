@@ -46,7 +46,7 @@ class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
                 ):
                     status = "Out Of Memory"
                 elif line.startswith("Timeout in process Solver"):
-                    statis = "TIMEOUT"
+                    status = "TIMEOUT"
 
             if not status:
                 status = result.RESULT_UNKNOWN
