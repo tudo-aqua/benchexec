@@ -45,7 +45,7 @@ def download_required_jars(config):
         # be too verbose).
         cmd += ["-warn"]
     cmd += ["-retrieve", "lib/vcloud-jars/[artifact](-[classifier]).[ext]"]
-    
+
     print(" ".join(cmd))
 
     # install vcloud jar and dependencies

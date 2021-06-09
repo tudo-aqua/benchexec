@@ -9,6 +9,7 @@ import benchexec.util as util
 import benchexec.tools.smtlib2
 import benchexec.result as result
 
+
 class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
     """
     Tool info for cvc4 used from jConstraint on the smtlib interface.
@@ -40,7 +41,9 @@ class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
                     status = result.RESULT_TRUE_PROP
                 elif not status and line.startswith("(error "):
                     status = "ERROR"
-                elif line.startswith("Exception in thread \"main\" java.lang.OutOfMemoryError"):
+                elif line.startswith(
+                    'Exception in thread "main" java.lang.OutOfMemoryError'
+                ):
                     status = "Out Of Memory"
                 elif line.startswith("Timeout in process Solver"):
                     status = "TIMEOUT"
@@ -61,6 +64,6 @@ class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
         elif returnsignal == 15:
             status = "KILLED"
         else:
-            status = "ERROR ({0})".format(returncode)
+            status = f"ERROR ({returncode})"
 
         return status

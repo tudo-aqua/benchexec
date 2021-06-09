@@ -13,6 +13,7 @@ class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
     """
     Tool info for cvc5.
     """
+
     REQUIRED_PATHS = ["run-cvc5.sh", "cvc5"]
 
     def executable(self):
@@ -20,7 +21,7 @@ class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
 
     def version(self, executable):
         line = self._version_from_tool(executable, "-version")
-        line = line.replace("This is CVC5 version","")
+        line = line.replace("This is CVC5 version", "")
         line = line.split("\n")[0]
         return line.strip()
 

@@ -90,7 +90,7 @@ class VcloudBenchmarkBase(benchexec.benchexec.BenchExec):
             dest="vcloud_jar",
             metavar="FILE_OR_PATH",
             type=str,
-            help="Use this vcloud jar instead of downloading it from the ivy repository."
+            help="Use this vcloud jar instead of downloading it from the ivy repository.",
         )
 
     def get_param_name(self, pname):

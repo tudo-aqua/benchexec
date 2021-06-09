@@ -9,6 +9,7 @@ import benchexec.util as util
 import benchexec.tools.smtlib2
 import benchexec.result as result
 
+
 class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
     """
     Tool info for z3.
@@ -40,9 +41,11 @@ class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
                     status = result.RESULT_TRUE_PROP
                 elif not status and line.startswith("(error "):
                     status = "ERROR"
-                elif line.startswith("Exception in thread \"main\" java.lang.OutOfMemoryError"):
+                elif line.startswith(
+                    'Exception in thread "main" java.lang.OutOfMemoryError'
+                ):
                     status = "Out Of Memory"
-                
+
             if not status:
                 status = result.RESULT_UNKNOWN
 
@@ -56,6 +59,6 @@ class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
         elif returnsignal == 15:
             status = "KILLED"
         else:
-            status = "ERROR ({0})".format(returncode)
+            status = f"ERROR ({returncode})"
 
         return status

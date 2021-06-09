@@ -9,6 +9,7 @@ import benchexec.util as util
 import benchexec.tools.smtlib2
 import benchexec.result as result
 
+
 class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
     """
     Tool info for ABC solver.
@@ -54,6 +55,6 @@ class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
         elif returnsignal == 15:
             status = "KILLED"
         else:
-            status = "ERROR ({0})".format(returncode)
+            status = f"ERROR ({returncode})"
 
         return status
