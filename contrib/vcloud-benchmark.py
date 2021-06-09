@@ -45,6 +45,8 @@ def download_required_jars(config):
         # be too verbose).
         cmd += ["-warn"]
     cmd += ["-retrieve", "lib/vcloud-jars/[artifact](-[classifier]).[ext]"]
+    
+    print(" ".join(cmd))
 
     # install vcloud jar and dependencies
     subprocess.run(
@@ -60,7 +62,6 @@ class VcloudBenchmark(VcloudBenchmarkBase):
     """
 
     def load_executor(self):
-        download_required_jars(self.config)
 
         import vcloud.benchmarkclient_executor as executor
 
@@ -68,6 +69,7 @@ class VcloudBenchmark(VcloudBenchmarkBase):
             print(self.config.vcloud_jar)
             executor.set_vcloud_jar_path(self.config.vcloud_jar)
         else:
+            download_required_jars(self.config)
             executor.set_vcloud_jar_path(
                 os.path.join(_ROOT_DIR, "lib", "vcloud-jars", "vcloud.jar")
             )
