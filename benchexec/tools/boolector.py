@@ -12,11 +12,11 @@ import benchexec.result as result
 
 class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
     """
-    Tool info for z3.
+    Tool info for boolector.
     """
 
     def executable(self):
-        return util.find_executable("jconstraints-runner-cvc4.sh")
+        return util.find_executable("boolector")
 
     def version(self, executable):
         line = self._version_from_tool(executable, "-version")
