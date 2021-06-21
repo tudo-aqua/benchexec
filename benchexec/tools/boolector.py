@@ -53,8 +53,8 @@ class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
                     status = "ERROR"
                 elif "unsupported logic" in line:
                     status = "UNSUPPORTED"
-            if not status:
-                status = result.RESULT_UNKNOWN
+                if not status:
+                    status = result.RESULT_UNKNOWN
 
         elif ((returnsignal == 9) or (returnsignal == 15)) and isTimeout:
             status = "TIMEOUT"
