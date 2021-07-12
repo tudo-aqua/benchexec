@@ -13,7 +13,9 @@ class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
     """
     Tool info for princess.
     """
+
     REQUIRED_PATHS = ["dist", "princess"]
+
     def executable(self):
         return util.find_executable("princess")
 

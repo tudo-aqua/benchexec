@@ -31,7 +31,13 @@ class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
 
     def determine_result(self, returncode, returnsignal, output, isTimeout):
 
-        if returnsignal == 0 and returncode == 0 or returncode == 1 or returncode == 10 or returncode == 20:
+        if (
+            returnsignal == 0
+            and returncode == 0
+            or returncode == 1
+            or returncode == 10
+            or returncode == 20
+        ):
             status = None
             for line in output:
                 line = line.strip()

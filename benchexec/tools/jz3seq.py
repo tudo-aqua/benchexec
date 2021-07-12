@@ -14,8 +14,8 @@ class Tool(benchexec.tools.smtlib2.Smtlib2Tool):
     """
     Tool info for z3.
     """
-    REQUIRED_PATHS = ["jconstraints-runner-z3seq.sh", "jconstraints-runner/build/libs/"]
 
+    REQUIRED_PATHS = ["jconstraints-runner-z3seq.sh", "jconstraints-runner/build/libs/"]
 
     def executable(self):
         return util.find_executable("jconstraints-runner-z3seq.sh")
